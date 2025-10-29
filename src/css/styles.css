@@ -1,18 +1,93 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
-/* Common styles */
-@import url('./reset.css');
-@import url('./base.css');
-@import url('./container.css');
-@import url('./animations.css');
+/* Navigation styles */
+.navigation {
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+  margin-bottom: 20px;
+}
 
-/* Sections style */
-@import url('./header.css');
-@import url('./vite-promo.css');
-@import url('./badges.css');
-@import url('./back-link.css');
-@import url('./footer.css');
+.nav-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4e75ff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: #6c8cff;
+}
+
+/* Gallery layout */
+ul.gallery {
+  list-style: none;
+  padding: 0;
+  margin: 24px auto;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(3, 360px); /* 3 kolon, her biri 360px */
+  justify-content: center;
+  gap: 24px; /* aralarındaki mesafe 24px sabit */
+  box-sizing: border-box;
+}
+
+/* Item/link box */
+.gallery-item {
+  margin: 0;
+}
+.gallery-link {
+  display: block;
+  width: 360px; /* sabit genişlik */
+  height: 200px; /* sabit yükseklik */
+  overflow: visible; /* hover'da görsel büyümenin görünmesini sağlar, layout bozulmaz */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #f7f7f7;
+  text-decoration: none;
+  box-sizing: border-box;
+  position: relative;
+  transition: none;
+}
+
+/* Image sizing and behavior */
+.gallery-image {
+  display: block;
+  width: 360px; /* 360x200 görünümü */
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.28s ease; /* hover'da görsel büyüme için transform kullan */
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Hover / focus effects: görsel 376x208 etkisini transform ile veriyoruz,
+   grid gap (24px) etkilenmez; hover sırasında eleman üstte görünmesi için z-index */
+.gallery-link:hover,
+.gallery-link:focus {
+  z-index: 10;
+}
+.gallery-link:hover .gallery-image,
+.gallery-link:focus .gallery-image {
+  transform: scaleX(1.044444) scaleY(1.04); /* 376/360 ≈ 1.044444, 208/200 = 1.04 */
+}
+
+/* Small screens tweak */
+@media (max-width: 480px) {
+  ul.gallery {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 12px;
+  }
+  .gallery-link {
+    width: 100%;
+    height: auto;
+  }
+  .gallery-image {
+    width: 100%;
+    height: auto;
+    transform: none;
+  }
+}
